@@ -7,8 +7,8 @@ import {
 
 const fileRouter = express.Router()
 
-fileRouter.get('/getallfile', getAllFiles)
-fileRouter.get('/getfile/:id', getFileById)
-fileRouter.post('/createfile', createFile)
+fileRouter.get('/', getAllFiles)
+fileRouter.get('/:id', getFileById)
+fileRouter.post('/', createFile)
 
 export default fileRouter
