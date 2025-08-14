@@ -1,14 +1,13 @@
-import express from 'express'
-import {
-    getAllFiles,
-    getFileById,
-    createFile
-} from '../application/File.js'
+import { getAllFiles, getFileById, createFile } from '../application/file.js';
 
-const fileRouter = express.Router()
-
-fileRouter.get('/getallfile', getAllFiles)
-fileRouter.get('/getfile/:id', getFileById)
-fileRouter.post('/createfile', createFile)
-
-export default fileRouter
+export default async function handler(req, res) {
+    if (req.method === 'GET' && req.url.startsWith('/getallfile')) {
+        await getAllFiles(req, res);
+    } else if (req.method === 'GET' && req.url.startsWith('/getfile/')) {
+        await getFileById(req, res);
+    } else if (req.method === 'POST' && req.url.startsWith('/createfile')) {
+        await createFile(req, res);
+    } else {
+        res.status(404).json({ message: 'Not found' });
+    }
+}
