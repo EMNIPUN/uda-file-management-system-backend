@@ -7,7 +7,7 @@ import fileRouter from "./api/file.js";
 const app = express();
 app.use(express.json());
 
-app.use("/api/files", fileRouter);
+app.use("/", fileRouter);
 
 connectDB();
 const PORT = process.env.PORT || 8000;
