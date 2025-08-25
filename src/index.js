@@ -8,10 +8,11 @@ import fileRouter from "./api/file.js";
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-    origin: process.env.CORS_ORIGIN,
-};
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: "https://uda-file-management-system-frontend-git-main-emnipuns-projects.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  }));
 
 app.use("/", fileRouter);
 
