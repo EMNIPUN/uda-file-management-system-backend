@@ -17,7 +17,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/", fileRouter);
+app.use("/api/file", fileRouter);
 
 connectDB();
 const PORT = process.env.PORT || 8000;
