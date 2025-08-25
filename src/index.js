@@ -9,12 +9,8 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN, 
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    origin: process.env.CORS_ORIGIN,
 };
-
 app.use(cors(corsOptions));
 
 app.use("/api/file", fileRouter);
