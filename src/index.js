@@ -8,22 +8,9 @@ import fileRouter from "./api/file.js";
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [
-  "http://localhost:3000", // local dev
-  "https://uda-file-management-system-frontend.vercel.app" // production frontend
-];
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+  origin: process.env.CORS_ORIGIN,
 };
-
 app.use(cors(corsOptions));
 
 app.use("/", fileRouter);
