@@ -5,18 +5,21 @@ const fileSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  Cluster: { 
-    type: Buffer, 
-    required: true 
-  },
-  FileLocation: { 
+  cluster: { 
     type: String, 
     required: true 
   },
-  status: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active"
+  row: { 
+    type: Number, 
+    required: true 
+  },
+  column: { 
+    type: Number, 
+    required: true 
+  },
+  address: { 
+    type: String, 
+    required: true 
   }
 });
 

@@ -28,17 +28,21 @@ export const createFile = async (req, res) => {
     const file = req.body;
 
     if (
-        !file.fileId ||
-        !file.Cluster ||
-        !file.FileLocation
+      !file.fileId ||
+      !file.cluster ||
+      !file.row ||
+      !file.column ||
+      !file.address
     ) {
         return res.status(400).json({ message: "Missing required fields" });
     }
 
     await File.create({
         fileId: file.fileId,
-        Cluster: file.Cluster,
-        FileLocation: file.FileLocation
+        cluster: file.cluster,
+        row: file.row,
+        column: file.column,
+        address: file.address
     });
 
     res.status(201).json({ message: "File created successfully" });
