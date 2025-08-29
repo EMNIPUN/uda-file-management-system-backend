@@ -51,3 +51,35 @@ export const createFile = async (req, res) => {
     res.status(500).json({ message: "Error creating file", error });
   }
 };
+
+export const deleteFile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const file = await File.findByIdAndDelete(id);
+    
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+    
+    res.status(200).json({ message: "File deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting file", error });
+  }
+};
+
+export const updateFile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+    
+    const file = await File.findByIdAndUpdate(id, updates, { new: true });
+    
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+    
+    res.status(200).json({ message: "File updated successfully", file });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating file", error });
+  }
+};
