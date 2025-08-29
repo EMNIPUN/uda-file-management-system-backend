@@ -24,17 +24,34 @@ const allowedOriginRegexes = (process.env.CORS_ORIGIN_REGEX || "")
     })
     .filter(Boolean);
 
+// Add default allowed origins for common frontend URLs
+const defaultAllowedOrigins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:4173",
+    "https://uda-file-management-system-frontend-git-main-emnipuns-projects.vercel.app",
+    "https://uda-file-management-system-frontend.vercel.app"
+];
+
+// Combine environment origins with default origins
+const allAllowedOrigins = [...new Set([...allowedOrigins, ...defaultAllowedOrigins])];
+
 app.use(cors({
     origin: function (origin, callback) {
         // Allow non-browser or same-origin requests (no Origin header)
         if (!origin) return callback(null, true);
 
-        const isExactAllowed = allowedOrigins.includes(origin);
+        const isExactAllowed = allAllowedOrigins.includes(origin);
         const isRegexAllowed = allowedOriginRegexes.some(rx => rx.test(origin));
 
         if (isExactAllowed || isRegexAllowed) {
             return callback(null, true);
         }
+        
+        // Log the blocked origin for debugging
+        console.log(`CORS blocked origin: ${origin}`);
+        console.log(`Allowed origins: ${allAllowedOrigins.join(', ')}`);
+        
         return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
