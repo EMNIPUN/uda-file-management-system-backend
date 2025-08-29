@@ -41,8 +41,10 @@ app.options("*", cors(corsOptions));
 
 app.use("/api/file", fileRouter);
 
+// Initialize DB connection on cold start
 connectDB();
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Export the Express app for Vercel Serverless
+export default app;
 
 
